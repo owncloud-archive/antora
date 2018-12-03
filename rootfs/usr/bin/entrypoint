@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+if [[ "$1" == "bash" ]]; then
+	exec "$@"
+else
+	exec antora "$@"
+fi
