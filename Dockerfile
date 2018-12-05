@@ -21,7 +21,7 @@ RUN apt-get update -y && \
 
 RUN apt-get update -y && \
   apt-get upgrade -y && \
-  apt-get install -y build-essential python libssl-dev && \
+  apt-get install -y tree build-essential python libssl-dev && \
   apt-get autoremove -y && \
   apt-get clean -y && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
