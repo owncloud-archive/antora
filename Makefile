@@ -11,4 +11,4 @@ DOCKER_CMD ?= docker
 
 .PHONY: build
 build:
-	cd $(BUILD_VERSION) && $(DOCKER_CMD) build -f Dockerfile.$(BUILD_ARCH) --label org.label-schema.version=$(BUILD_VERSION) --label org.label-schema.build-date=$(BUILD_DATE) --label org.label-schema.vcs-url=$(VCS_URL) --label org.label-schema.vcs-ref=$(VCS_REF) -t $(IMAGE_NAME) .
+	cd $(BUILD_VERSION) && $(DOCKER_CMD) build -f Dockerfile.$(BUILD_ARCH) --label org.label-schema.version=$(BUILD_VERSION) --label org.label-schema.build-date=$(BUILD_DATE) --label org.label-schema.vcs-url=$(VCS_URL) --label org.label-schema.vcs-ref=$(VCS_REF) -t $(IMAGE_NAME):$(BUILD_VERSION) .
