@@ -1,4 +1,4 @@
-FROM owncloud/ubuntu:16.04
+FROM owncloudci/nodejs:12
 
 LABEL maintainer="ownCloud DevOps <devops@owncloud.com>"
 LABEL org.opencontainers.image.authors="ownCloud DevOps <devops@owncloud.com>"
@@ -7,27 +7,21 @@ LABEL org.opencontainers.image.url="https://github.com/owncloud-ci/antora"
 LABEL org.opencontainers.image.source="https://github.com/owncloud-ci/antora"
 LABEL org.opencontainers.image.documentation="https://github.com/owncloud-ci/antora"
 
-ENTRYPOINT ["/usr/bin/entrypoint"]
-CMD ["antora"]
+ARG BUILD_VERSION
 
-RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-    echo "deb https://deb.nodesource.com/node_8.x xenial main" | tee /etc/apt/sources.list.d/node.list
-
-RUN apt-get update -y && \
-    apt-get upgrade -y && \
-    apt-get install -y nodejs git-core && \
-    apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    npm install -g yarn npx --force
+# renovate: datasource=npm depName=@antora/cli
+ENV ANTORA_VERSION="${BUILD_VERSION:-2.3.0}"
 
 RUN apt-get update -y && \
-    apt-get upgrade -y && \
     apt-get install -y tree build-essential python libssl-dev && \
     apt-get autoremove -y && \
     apt-get clean -y && \
+    npm install -g yarn npx --force && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN yarn global add @antora/cli @antora/site-generator-default
+RUN yarn global add "@antora/cli@$ANTORA_VERSION" @antora/site-generator-default
 
 COPY rootfs /
+
+ENTRYPOINT ["/usr/bin/entrypoint"]
+CMD ["antora"]
