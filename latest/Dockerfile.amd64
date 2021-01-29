@@ -1,9 +1,11 @@
 FROM owncloud/ubuntu:16.04
 
-LABEL maintainer="ownCloud DevOps <devops@owncloud.com>" \
-  org.label-schema.name="ownCloud CI Antora" \
-  org.label-schema.vendor="ownCloud GmbH" \
-  org.label-schema.schema-version="1.0"
+LABEL maintainer="ownCloud DevOps <devops@owncloud.com>"
+LABEL org.opencontainers.image.authors="ownCloud DevOps <devops@owncloud.com>"
+LABEL org.opencontainers.image.title="ownCloud CI Antora"
+LABEL org.opencontainers.image.url="https://github.com/owncloud-ci/antora"
+LABEL org.opencontainers.image.source="https://github.com/owncloud-ci/antora"
+LABEL org.opencontainers.image.documentation="https://github.com/owncloud-ci/antora"
 
 ENTRYPOINT ["/usr/bin/entrypoint"]
 CMD ["antora"]
